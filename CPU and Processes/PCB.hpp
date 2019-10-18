@@ -15,6 +15,7 @@ protected:
 
 	int processAddress;
 	int priority;
+	int commandCounter;
 	int registryA;
 	int registryB;
 	int registryC;
