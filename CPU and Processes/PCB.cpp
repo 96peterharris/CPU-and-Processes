@@ -128,6 +128,7 @@ bool PCB::haltProcess(std::string pid) {
 	}
 }
 std::deque<PCB*> PCB::getReadyProccessesRT() {
+	sortMapByPriority();
 	for (auto const& e : this->processesMap) {
 		if (e.second->state == State::READY && e.second->typeOfProcess == TypeOfProcess::REAL_TIME) {
 			addToReadyQueueRT(e.second);
@@ -135,6 +136,7 @@ std::deque<PCB*> PCB::getReadyProccessesRT() {
 	}
 }
 std::deque<PCB*> PCB::getReadyProccessesST() {
+	sortMapByPriority();
 	for (auto const& e : this->processesMap) {
 		if (e.second->state == State::READY && e.second->typeOfProcess == TypeOfProcess::STANDARD) {
 			addToReadyQueueST(e.second);
@@ -142,21 +144,14 @@ std::deque<PCB*> PCB::getReadyProccessesST() {
 	}
 }
 void PCB::sortMapByPriority() {
-	std::map<std::string, PCB*>::iterator it1 = this->processesMap.begin();
-	std::map<std::string, PCB*>::iterator it2 = it1++;
+	int i = 1;
+	std::pair<std::string, PCB*>next = this->processesMap.at[1];
 
-	for (int i = 0; i < processesMap.size(); i++)
-	{
-		for (int j = 0; j < (processesMap.size() - i - 1); j++)
-		{
-			if (it1->second->getPriority() > it2->second->getPriority()) {
-				std::swap(processesMap.at(it1.))
-			}
-			if (array[j] > array[j + 1])
-			{
-				swap(&array[j], &array[j + 1]);
-			}
+	for (auto& e : processesMap) {
+
+		if (e.second->getPriority() < next.second->getPriority()) {
+			this->processesMap.emplace(next, e);
 		}
+		next = this->processesMap.at[i++];
 	}
-
 }
