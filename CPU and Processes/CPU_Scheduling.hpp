@@ -21,6 +21,7 @@ private:
 	void addToTerminatedVec(PCB* _pcb);
 	void getProcesses();
 	void countingDown();
+	void dummy0();
 
 public:
 	CPU_Scheduling();

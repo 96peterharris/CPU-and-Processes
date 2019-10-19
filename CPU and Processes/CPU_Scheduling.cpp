@@ -34,8 +34,9 @@ void CPU_Scheduling::countingDown() {
 		std::cout << "\x1B[2K\r";
 	}
 }
-void CPU_Scheduling::sortByPriority() {
-	
+void CPU_Scheduling::dummy0() {
+	std::cout << "Now is running: " << this->dummy0.getPid() << " process - State: " << getStateName(dummy0.getState());
+	countingDown();
 }
 void CPU_Scheduling::running() {
 	//tu ¿e uruchomiony dummy
@@ -43,15 +44,14 @@ void CPU_Scheduling::running() {
 	while (true) {
 
 		getProcesses();
+		dummy0();
 
-		if (readyQueueRT.size() == 0 && readyQueueST.size() == 0) {
-		
-			std::cout << "Now is running: " << this->dummy0.getPid() << " process - State: " << getStateName(dummy0.getState());
-			countingDown();
-		}
-		else {
+		if (!readyQueueRT.empty()){
+			while (!readyQueueRT.empty()) {
 
+			}
 		}
+	
 	}
 	
 	
