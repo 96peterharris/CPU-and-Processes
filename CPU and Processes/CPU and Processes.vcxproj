@@ -151,6 +151,7 @@
     <ClInclude Include="CPU_Scheduling.hpp" />
     <ClInclude Include="PCB.hpp" />
     <ClInclude Include="State.hpp" />
+    <ClInclude Include="TypeOfProcesshpp.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

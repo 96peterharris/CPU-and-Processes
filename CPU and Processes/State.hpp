@@ -1,5 +1,6 @@
 #pragma once
 #include <exception>
+#include <string>
 
 enum State
 {
@@ -10,25 +11,15 @@ enum State
 	TERMINATED
 
 };
-int getNumberOfState(State e)
-{
-	switch(e){
+std::string getStateName(State e) {
 
-		case 
-			NEW: return 1;
+	switch (e) {
 
-		case 
-			RUNNING: return 2;
-
-		case 
-			WAITING: return 3;
-
-		case
-			READY: return 4;
-
-		case
-			TERMINATED: return 5;
-
-		default: throw std::length_error("Out of enum range!");
+		case NEW: return "NEW";   break;
+		case RUNNING:return "RUNNING"; break;
+		case WAITING: return "WAITING";  break;
+		case READY: return "READY"; break;
+		case TERMINATED: return "TERMINATED";  break;
 	}
-}
+
+};
