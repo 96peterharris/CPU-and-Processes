@@ -14,10 +14,10 @@ private:
 	std::priority_queue<PCB*, std::vector<PCB*>, ComparePriority> recivedQueue; //Queue of processes
 	std::vector<PCB*> terminatedProcesses; //Vector of Terminated processes
 
-	void increasePriority(PCB* _pcb);
-	void changeState(PCB* _pcb);
-	void addToTerminatedVec(PCB* _pcb);
-	std::priority_queue < PCB*, std::vector<PCB*>> getProcesses();
+	void increasePriority();
+	void changeState(PCB* pcb);
+	void addToTerminatedVec(PCB* pcb);
+	std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> getProcesses();
 	void countingDown();
 
 public:

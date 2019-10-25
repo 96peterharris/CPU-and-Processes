@@ -6,7 +6,7 @@ PCB::PCB(std::string _pid, int _processAddress, int _priority, State _state) : p
 	this->addToReadyQueue(new PCB("DUMMY0", 11, 0, NEW));
 }
 void PCB::addToReadyQueue(PCB * pcb) {
-	this->readyQueue.push(pcb);
+	readyQueue.push(pcb);
 }
 std::string PCB::getPid() {
 	return this->pid;
@@ -108,7 +108,7 @@ bool PCB::haltProcess(std::string pid) {
 		return false;
 	}
 }
-std::priority_queue<PCB*, std::vector<PCB*>> PCB::getReadyProccesses() {
+std::priority_queue<PCB*, std::vector<PCB*>, ComparePriority> PCB::getReadyProccesses() {
 	sortMapByPriority();
 	for (auto const& e : processesMap) {
 		if (e.second->state == State::READY) {

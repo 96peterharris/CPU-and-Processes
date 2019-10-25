@@ -31,7 +31,7 @@ protected:
 	
 	static std::map<std::string, PCB*> processesMap;
 	
-	static std::priority_queue < PCB*, std::vector<PCB*>> readyQueue; //Real Time processes
+	static std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> readyQueue; //Real Time processes
 
 
 	std::vector<std::string> openedFilesList;
@@ -50,7 +50,7 @@ public:
 	~PCB() {};
 
 
-	static std::priority_queue < PCB*, std::vector<PCB*>> getReadyProccesses();
+	static std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> getReadyProccesses();
 	bool createProcess(std::string pid, int processAddress, int priority, State state);
 	bool removeProcess(std::string pid);
 	bool resumeProcess(std::string pid);
