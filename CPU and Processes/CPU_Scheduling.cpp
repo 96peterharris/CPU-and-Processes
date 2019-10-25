@@ -16,8 +16,8 @@ void CPU_Scheduling::changeState(PCB* _pcb) {
 void CPU_Scheduling::addToTerminatedVec(PCB* _pcb) {
 	this->addToTerminatedVec(_pcb);
 }
-void CPU_Scheduling::getProcesses() {
-	this->recivedQueue = this->getReadyProccesses();
+std::priority_queue < PCB*, std::vector<PCB*>> CPU_Scheduling::getProcesses() {
+	this->recivedQueue = getReadyProccesses();
 }
 void CPU_Scheduling::countingDown() {
 	for (int i = 1; i < 6; i++) {

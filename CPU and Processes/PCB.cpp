@@ -6,71 +6,71 @@ PCB::PCB(std::string _pid, int _processAddress, int _priority, State _state) : p
 	this->addToReadyQueue(new PCB("DUMMY0", 11, 0, NEW));
 }
 void PCB::addToReadyQueue(PCB * pcb) {
-	this->readyQueue.push_back(pcb);
+	this->readyQueue.push(pcb);
 }
 std::string PCB::getPid() {
 	return this->pid;
 }
-void PCB::setPid(std::string _pid) {
-	this->pid = _pid;
+void PCB::setPid(std::string pid) {
+	this->pid = pid;
 }
 int PCB::getCommandCounter() {
 	return this->commandCounter;
 }
-void PCB::setCommandCounter(int _commandCounter) {
-	this->commandCounter = _commandCounter;
+void PCB::setCommandCounter(int commandCounter) {
+	this->commandCounter = commandCounter;
 }
 int PCB::getProcessAddress() {
 	return this->processAddress;
 }
-void PCB::setProcessAddress(int _processAddress) {
-	this->processAddress = _processAddress;
+void PCB::setProcessAddress(int processAddress) {
+	this->processAddress = processAddress;
 }
 int PCB::getPriority() {
 	return this->priority;
 }
-void PCB::setPriority(int _priority) {
-	this->priority = _priority;
+void PCB::setPriority(int priority) {
+	this->priority = priority;
 }
 int PCB::getRegistryA() {
 	return this->registryA;
 }
-void PCB::setRegistryA(int _registryA) {
-	this->registryA = _registryA;
+void PCB::setRegistryA(int registryA) {
+	this->registryA = registryA;
 }
 int PCB::getRegistryB() {
 	return this->registryB;
 }
-void PCB::setRegistryB(int _registryB) {
-	this->registryB = _registryB;
+void PCB::setRegistryB(int registryB) {
+	this->registryB = registryB;
 }
 int PCB::getRegistryC() {
 	return this->registryC;
 }
-void PCB::setRegistryC(int _registryC) {
-	this->registryC = _registryC;
+void PCB::setRegistryC(int registryC) {
+	this->registryC = registryC;
 }
 int PCB::getRegistryD() {
 	return this->getRegistryD;
 }
-void PCB::setRegistryD(int _registryD) {
-	this->getRegistryD = _registryD;
+void PCB::setRegistryD(int registryD) {
+	this->getRegistryD = registryD;
 }
 State PCB::getState(){
 	return this->state;
 } 
-void PCB::setState(State _state) {
-	this->state = _state;
+void PCB::setState(State state) {
+	this->state = state;
 }
-bool PCB::createProcess(std::string _pid, int _processAddress, int _priority, State _state) {
-	std::map<std::string, PCB*>::iterator it = this->processesMap.find(_pid);
+bool PCB::createProcess(std::string pid, int processAddress, int priority, State state) {
+	std::map<std::string, PCB*>::iterator it = this->processesMap.find(pid);
 
-	if (_pid == it->first) {
+	if (pid == it->first) {
 		return false;
 	}
 	else {
-		PCB* pcb = new PCB(_pid, _processAddress, _priority);
-		this->processesMap.insert(std::pair<std::string, PCB*>(_pid, pcb));
+		PCB* pcb = new PCB(pid, processAddress, priority, state);
+		this->processesMap.insert(std::pair<std::string, PCB*>(pid, pcb));
 		return true;
 	}
 }
@@ -108,9 +108,9 @@ bool PCB::haltProcess(std::string pid) {
 		return false;
 	}
 }
-std::deque<PCB*> PCB::getReadyProccesses() {
+std::priority_queue<PCB*, std::vector<PCB*>> PCB::getReadyProccesses() {
 	sortMapByPriority();
-	for (auto const& e : this->processesMap) {
+	for (auto const& e : processesMap) {
 		if (e.second->state == State::READY) {
 			addToReadyQueue(e.second);
 		}
@@ -118,13 +118,13 @@ std::deque<PCB*> PCB::getReadyProccesses() {
 }
 void PCB::sortMapByPriority() {
 	int i = 1;
-	std::pair<std::string, PCB*>next = this->processesMap.at[1];
+	std::pair<std::string, PCB*>next = processesMap.at[1];
 
 	for (auto& e : processesMap) {
 
 		if (e.second->getPriority() < next.second->getPriority()) {
-			this->processesMap.emplace(next, e);
+			processesMap.emplace(next, e);
 		}
-		next = this->processesMap.at[i++];
+		next = processesMap.at[i++];
 	}
 }

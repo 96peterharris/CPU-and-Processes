@@ -148,6 +148,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComparePriority.hpp" />
     <ClInclude Include="CPU_Scheduling.hpp" />
     <ClInclude Include="PCB.hpp" />
     <ClInclude Include="State.hpp" />
