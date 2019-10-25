@@ -5,15 +5,15 @@
 CPU_Scheduling::CPU_Scheduling() {}
 void CPU_Scheduling::increasePriority() {
 
-	std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> tempQueue = recivedQueue;
+	std::priority_queue < PCB*, std::vector<PCB*>> tempQueue = recivedQueue;
 	PCB* tmp = this->recivedQueue.top();
 	readyQueue.pop();
 
-	while (!readyQueue.top) {
-		readyQueue.pop;
+	while (!readyQueue.top()) {
+		readyQueue.pop();
 	}
 
-	while (!tempQueue.empty) {
+	while (!tempQueue.empty()) {
 		PCB* tempPCB = tempQueue.top();
 
 		if (tempPCB->getPriority() < 12) {
@@ -35,7 +35,7 @@ void CPU_Scheduling::changeState(PCB* pcb) {
 void CPU_Scheduling::addToTerminatedVec(PCB* pcb) {
 	this->addToTerminatedVec(pcb);
 }
-std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> CPU_Scheduling::getProcesses() {
+std::priority_queue < PCB*, std::vector<PCB*>> CPU_Scheduling::getProcesses() {
 
 	this->recivedQueue = getReadyProccesses();
 }

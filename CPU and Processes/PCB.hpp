@@ -31,7 +31,7 @@ protected:
 	
 	static std::map<std::string, PCB*> processesMap;
 	
-	static std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> readyQueue; //Real Time processes
+	static std::priority_queue < PCB*, std::vector<PCB*>> readyQueue; //Real Time processes
 
 
 	std::vector<std::string> openedFilesList;
@@ -41,6 +41,12 @@ protected:
 
 	static void sortMapByPriority();
 	static void addToReadyQueue(PCB * pcb);
+
+
+	bool operator()(PCB& p1, PCB& p2) {
+		return p1.getPriority() < p2.getPriority();
+	}
+
 	
 	//memoryPointer 
 
@@ -50,7 +56,7 @@ public:
 	~PCB() {};
 
 
-	static std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> getReadyProccesses();
+	static std::priority_queue < PCB*, std::vector<PCB*>> getReadyProccesses();
 	bool createProcess(std::string pid, int processAddress, int priority, State state);
 	bool removeProcess(std::string pid);
 	bool resumeProcess(std::string pid);
@@ -72,6 +78,9 @@ public:
 	void setPriority(int priority);
 	State getState();
 	void setState(State state);
+
+	bool operator<(const PCB& other)const;
+	
 	
 
 };

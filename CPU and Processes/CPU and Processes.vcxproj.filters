@@ -35,8 +35,5 @@
     <ClInclude Include="State.hpp">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="ComparePriority.hpp">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

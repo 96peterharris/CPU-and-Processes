@@ -11,13 +11,13 @@ class CPU_Scheduling : public PCB
 {
 private:
 	
-	std::priority_queue<PCB*, std::vector<PCB*>, ComparePriority> recivedQueue; //Queue of processes
+	std::priority_queue<PCB*, std::vector<PCB*>> recivedQueue; //Queue of processes
 	std::vector<PCB*> terminatedProcesses; //Vector of Terminated processes
 
 	void increasePriority();
 	void changeState(PCB* pcb);
 	void addToTerminatedVec(PCB* pcb);
-	std::priority_queue < PCB*, std::vector<PCB*>, ComparePriority> getProcesses();
+	std::priority_queue < PCB*, std::vector<PCB*>> getProcesses();
 	void countingDown();
 
 public:

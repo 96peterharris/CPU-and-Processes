@@ -51,10 +51,10 @@ void PCB::setRegistryC(int registryC) {
 	this->registryC = registryC;
 }
 int PCB::getRegistryD() {
-	return this->getRegistryD;
+	return this->registryD;
 }
 void PCB::setRegistryD(int registryD) {
-	this->getRegistryD = registryD;
+	this->registryD = registryD;
 }
 State PCB::getState(){
 	return this->state;
@@ -108,7 +108,7 @@ bool PCB::haltProcess(std::string pid) {
 		return false;
 	}
 }
-std::priority_queue<PCB*, std::vector<PCB*>, ComparePriority> PCB::getReadyProccesses() {
+std::priority_queue<PCB*, std::vector<PCB*>> PCB::getReadyProccesses() {
 	sortMapByPriority();
 	for (auto const& e : processesMap) {
 		if (e.second->state == State::READY) {
@@ -117,8 +117,8 @@ std::priority_queue<PCB*, std::vector<PCB*>, ComparePriority> PCB::getReadyProcc
 	}
 }
 void PCB::sortMapByPriority() {
-	int i = 1;
-	std::pair<std::string, PCB*>next = processesMap.at[1];
+	/*int i = 1;
+	std::pair<std::string, PCB*>next = processesMap.at("dummy");
 
 	for (auto& e : processesMap) {
 
@@ -127,4 +127,14 @@ void PCB::sortMapByPriority() {
 		}
 		next = processesMap.at[i++];
 	}
+	*/
+
+	
+	std::sort(processesMap.begin(), processesMap.end());
+}
+bool PCB::operator<(const PCB& other) const {
+{
+	
+		return ((this->priority < other.priority) || (priority < other.priority));
+
 }
