@@ -2,16 +2,9 @@
 
 
 
-CPU_Scheduling::CPU_Scheduling() {
-	this->dummy0 = PCB("Dummy 0", 0000, 0, State::RUNNING);
-}
+CPU_Scheduling::CPU_Scheduling() {}
 void CPU_Scheduling::increasePriority(PCB* _pcb) {
-	if (_pcb->getTypeOfProcess == TypeOfProcess::REAL_TIME && _pcb->getPriority() < 30) {
-		int tmp = _pcb->getPriority();
-		tmp++;
-		_pcb->setPriority(tmp);
-	}
-	else if (_pcb->getTypeOfProcess() == TypeOfProcess::STANDARD && _pcb->getPriority() < 16) {
+	if (_pcb->getPriority() < 15) {
 		int tmp = _pcb->getPriority();
 		tmp++;
 		_pcb->setPriority(tmp);
@@ -24,8 +17,7 @@ void CPU_Scheduling::addToTerminatedVec(PCB* _pcb) {
 	this->addToTerminatedVec(_pcb);
 }
 void CPU_Scheduling::getProcesses() {
-	this->recivedQueueRT = this->getReadyProccessesRT();
-	this->recivedQueueST = this->getReadyProccessesST();
+	this->recivedQueue = this->getReadyProccesses();
 }
 void CPU_Scheduling::countingDown() {
 	for (int i = 1; i < 6; i++) {
@@ -34,23 +26,29 @@ void CPU_Scheduling::countingDown() {
 		std::cout << "\x1B[2K\r";
 	}
 }
-void CPU_Scheduling::dummy0() {
-	std::cout << "Now is running: " << this->dummy0.getPid() << " process - State: " << getStateName(dummy0.getState());
-	countingDown();
-}
+
 void CPU_Scheduling::running() {
 	//tu ¿e uruchomiony dummy
 	
 	while (true) {
 
-		getProcesses();
-		dummy0();
-
-		if (!readyQueueRT.empty()){
-			while (!readyQueueRT.empty()) {
-
-			}
+		for (int i = 0; i < 5; i++) {
+			
+			
 		}
+
+		while (!readyQueue.empty()) {
+			for (int i = 0; i < 5; i++) {
+				increasePriority(commandCounter);
+				this->readyQueue.at[0];
+			}
+			commandCounter++;
+		}
+
+		getProcesses();
+		
+
+	
 	
 	}
 	

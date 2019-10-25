@@ -11,17 +11,14 @@ class CPU_Scheduling : public PCB
 {
 private:
 	
-	std::deque<PCB*> recivedQueueRT; //Queue of Real Time processes
-	std::deque<PCB*> recivedQueueST; //Queue of Standart processes
+	std::deque<PCB*> recivedQueue; //Queue of processes
 	std::vector<PCB*> terminatedProcesses; //Vector of Terminated processes
-	PCB dummy0;
 
 	void increasePriority(PCB* _pcb);
 	void changeState(PCB* _pcb);
 	void addToTerminatedVec(PCB* _pcb);
 	void getProcesses();
 	void countingDown();
-	void dummy0();
 
 public:
 	CPU_Scheduling();

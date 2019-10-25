@@ -18,22 +18,20 @@ protected:
 	int processAddress;
 	int priority;
 	int commandCounter;
-	int actualCommandCounter; //ACC
-	int oldCommandCounter; //OCC
 	int registryA;
 	int registryB;
 	int registryC;
 	int registryD;
+
+	
 
 	State state;
 	TypeOfProcess typeOfProcess;
 	
 	static std::map<std::string, PCB*> processesMap;
 	
-	std::deque<PCB*> readyQueueRT; //Real Time processes
-	std::deque<PCB*> readyQueueST; //Standard processes
-	void addToReadyQueueRT(PCB * pcb);
-	void addToReadyQueueST(PCB * pcb);
+	std::deque<PCB*> readyQueue; //Real Time processes
+	void addToReadyQueue(PCB * pcb);
 
 	std::vector<std::string> openedFilesList;
 
@@ -45,13 +43,12 @@ protected:
 
 public:
 	PCB() {};
-	PCB(std::string _pid, int _processAddress, int _priority, State _state, TypeOfProcess _typeOfProcess);
+	PCB(std::string _pid, int _processAddress, int _priority, State _state);
 	PCB(std::string _pid, int _processAddress, int _priority, State _state);
 	~PCB() {};
 
-	std::deque<PCB*> getReadyProccessesRT();
-	std::deque<PCB*> getReadyProccessesST();
-	bool createProcess(std::string _pid, int _processAddress, int _priority, State state, TypeOfProcess _typeOfProcess);
+	std::deque<PCB*> getReadyProccesses();
+	bool createProcess(std::string _pid, int _processAddress, int _priority, State state);
 	bool removeProcess(std::string pid);
 	bool resumeProcess(std::string pid);
 	bool haltProcess(std::string pid);
@@ -68,16 +65,10 @@ public:
 	void setRegistryD(int _registryD);
 	int getCommandCounter();
 	void setCommandCounter(int _commandCounter);
-	int getActualCommandCounter();
-	void setActualCommandCounter(int _actualCommandCounter);
-	int getOldCommandCounter();
-	void setOldCommandCounter(int _oldCommandCounter);
 	int getPriority();
 	void setPriority(int _priority);
 	State getState();
 	void setState(State _state);
-	TypeOfProcess getTypeOfProcess();
-	void setTypeOfprocess(TypeOfProcess _typeOfProcess);
 	
 
 };

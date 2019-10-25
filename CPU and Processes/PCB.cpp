@@ -1,13 +1,12 @@
 #include "PCB.hpp"
 
 
-PCB::PCB(std::string _pid, int _processAddress, int _priority, State _state, TypeOfProcess _typeOfProcess) : pid(_pid), processAddress(_processAddress), priority(_priority), state(_state), typeOfProcess(_typeOfProcess) {}
-PCB::PCB(std::string _pid, int _processAddress, int _priority, State _state) : pid(_pid), processAddress(_processAddress), priority(_priority), state(_state) {};
-void PCB::addToReadyQueueRT(PCB * pcb) {
-	this->readyQueueRT.push_back(pcb);
+PCB::PCB(std::string _pid, int _processAddress, int _priority, State _state) : pid(_pid), processAddress(_processAddress), priority(_priority), state(_state) {
+
+	this->addToReadyQueue(new PCB("DUMMY0", 11, 0, NEW));
 }
-void PCB::addToReadyQueueST(PCB * pcb) {
-	this->readyQueueST.push_back(pcb);
+void PCB::addToReadyQueue(PCB * pcb) {
+	this->readyQueue.push_back(pcb);
 }
 std::string PCB::getPid() {
 	return this->pid;
@@ -20,18 +19,6 @@ int PCB::getCommandCounter() {
 }
 void PCB::setCommandCounter(int _commandCounter) {
 	this->commandCounter = _commandCounter;
-}
-int PCB::getActualCommandCounter() {
-	return this->actualCommandCounter;
-}
-void PCB::setActualCommandCounter(int _actualCommandCounter) {
-	this->actualCommandCounter = _actualCommandCounter;
-}
-int PCB::getOldCommandCounter() {
-	return this->oldCommandCounter;
-}
-void PCB::setOldCommandCounter(int _oldCommandCounter) {
-	this->oldCommandCounter = _oldCommandCounter;
 }
 int PCB::getProcessAddress() {
 	return this->processAddress;
@@ -75,20 +62,14 @@ State PCB::getState(){
 void PCB::setState(State _state) {
 	this->state = _state;
 }
-TypeOfProcess PCB::getTypeOfProcess() {
-	return this->typeOfProcess;
-}
-void PCB::setTypeOfprocess(TypeOfProcess _typeOfProcess) {
-	this->typeOfProcess = _typeOfProcess;
-}
-bool PCB::createProcess(std::string _pid, int _processAddress, int _priority, State _state, TypeOfProcess _typeOfProcess) {
+bool PCB::createProcess(std::string _pid, int _processAddress, int _priority, State _state) {
 	std::map<std::string, PCB*>::iterator it = this->processesMap.find(_pid);
 
 	if (_pid == it->first) {
 		return false;
 	}
 	else {
-		PCB* pcb = new PCB(_pid, _processAddress, _priority, _state, _typeOfProcess);
+		PCB* pcb = new PCB(_pid, _processAddress, _priority);
 		this->processesMap.insert(std::pair<std::string, PCB*>(_pid, pcb));
 		return true;
 	}
@@ -97,7 +78,7 @@ bool PCB::removeProcess(std::string pid) {
 	std::map<std::string, PCB*>::iterator it = this->processesMap.find(pid);
 
 	if (pid == it->first) {
-		//Tu by trzeba dodac ustawienie stanu na terminated chocia¿ ja te to w CP_Scheduling ustawiam tak¿e do rozwa¿enia
+		it->second->setState(TERMINATED);
 		this->processesMap.erase(it);
 		return true;
 	}
@@ -127,19 +108,11 @@ bool PCB::haltProcess(std::string pid) {
 		return false;
 	}
 }
-std::deque<PCB*> PCB::getReadyProccessesRT() {
+std::deque<PCB*> PCB::getReadyProccesses() {
 	sortMapByPriority();
 	for (auto const& e : this->processesMap) {
-		if (e.second->state == State::READY && e.second->typeOfProcess == TypeOfProcess::REAL_TIME) {
-			addToReadyQueueRT(e.second);
-		}
-	}
-}
-std::deque<PCB*> PCB::getReadyProccessesST() {
-	sortMapByPriority();
-	for (auto const& e : this->processesMap) {
-		if (e.second->state == State::READY && e.second->typeOfProcess == TypeOfProcess::STANDARD) {
-			addToReadyQueueST(e.second);
+		if (e.second->state == State::READY) {
+			addToReadyQueue(e.second);
 		}
 	}
 }
