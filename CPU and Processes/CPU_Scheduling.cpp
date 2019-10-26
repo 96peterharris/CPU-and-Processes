@@ -37,7 +37,7 @@ void CPU_Scheduling::addToTerminatedVec(PCB* pcb) {
 }
 std::priority_queue < PCB*, std::vector<PCB*>> CPU_Scheduling::getProcesses() {
 
-	this->recivedQueue = getReadyProccesses();
+	return this->recivedQueue = getReadyProccesses();
 }
 void CPU_Scheduling::countingDown() {
 	for (int i = 1; i < 6; i++) {

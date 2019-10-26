@@ -4,20 +4,21 @@
 #include <queue>
 #include <vector>
 #include <string>
-#include "ComparePriority.hpp"
 #include <algorithm>
 
-class CPU_Scheduling : public PCB
+class CPU_Scheduling : protected PCB
 {
 private:
+
+
 	
-	std::priority_queue<PCB*, std::vector<PCB*>> recivedQueue; //Queue of processes
+	std::priority_queue<PCB*, std::vector<PCB*>, Compare> recivedQueue; //Queue of processes
 	std::vector<PCB*> terminatedProcesses; //Vector of Terminated processes
 
 	void increasePriority();
 	void changeState(PCB* pcb);
 	void addToTerminatedVec(PCB* pcb);
-	std::priority_queue < PCB*, std::vector<PCB*>> getProcesses();
+	std::priority_queue < PCB*, std::vector<PCB*>, Compare> getProcesses();
 	void countingDown();
 
 public:

@@ -11,7 +11,7 @@ enum State
 	TERMINATED
 
 };
-std::string getStateName(State e) {
+/*std::string getStateName(State e) {
 
 	switch (e) {
 
@@ -22,4 +22,4 @@ std::string getStateName(State e) {
 		case TERMINATED: return "TERMINATED";  break;
 	}
 
-};
+};*/

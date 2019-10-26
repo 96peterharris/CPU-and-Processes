@@ -7,9 +7,7 @@
 #include <queue>
 #include <iterator>
 #include "State.hpp"
-#include "TypeOfProcesshpp.hpp"
 #include <functional>
-#include "ComparePriority.hpp"
 
 class PCB
 {
@@ -24,14 +22,32 @@ protected:
 	int registryC;
 	int registryD;
 
-	
+
 
 	State state;
-	TypeOfProcess typeOfProcess;
-	
-	static std::map<std::string, PCB*> processesMap;
-	
-	static std::priority_queue < PCB*, std::vector<PCB*>> readyQueue; //Real Time processes
+
+
+
+	class Compare
+	{
+	public:
+		bool operator() (PCB* p1, PCB* p2)
+		{
+			if (p1->priority > p2->priority) {
+				return true;
+			}
+			else {
+				false;
+			}
+		}
+	};
+
+
+
+
+
+
+	static std::priority_queue < PCB*, std::vector<PCB*>, Compare> readyQueue; //Real Time processes
 
 
 	std::vector<std::string> openedFilesList;
@@ -39,15 +55,20 @@ protected:
 	int getProcessAddress();
 	void setProcessAddress(int _processAddress);
 
-	static void sortMapByPriority();
-	static void addToReadyQueue(PCB * pcb);
+	//static void sortMapByPriority();
+	static void addToReadyQueue(PCB* pcb);
 
+	//typedef std::function<bool(std::pair<std::string, PCB*>, std::pair<std::string, PCB*>)> Comparator;
 
-	bool operator()(PCB& p1, PCB& p2) {
-		return p1.getPriority() < p2.getPriority();
-	}
+	/*lass MapComparer {
 
-	
+		Comparator compFunctor = [](std::pair<std::string, PCB*> elem1, std::pair<std::string, PCB*> elem2)
+		{
+			return elem1.second->priority < elem2.second->priority;
+		};
+	};*/
+
+	static std::map<std::string, PCB*> processesMap;
 	//memoryPointer 
 
 public:
@@ -56,7 +77,7 @@ public:
 	~PCB() {};
 
 
-	static std::priority_queue < PCB*, std::vector<PCB*>> getReadyProccesses();
+	static std::priority_queue < PCB*, std::vector<PCB*>, Compare> getReadyProccesses();
 	bool createProcess(std::string pid, int processAddress, int priority, State state);
 	bool removeProcess(std::string pid);
 	bool resumeProcess(std::string pid);
@@ -79,9 +100,6 @@ public:
 	State getState();
 	void setState(State state);
 
-	bool operator<(const PCB& other)const;
-	
-	
 
 };
 
